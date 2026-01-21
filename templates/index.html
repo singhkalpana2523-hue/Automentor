@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AutoMentor AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>🤖 AutoMentor AI</h1>
+    <p style="text-align:center; color:#6b7280;">
+        Agent-Based Intelligent Code Reviewer & Learning Assistant
+    </p>
+
+    <form method="post">
+        <textarea name="code" rows="12" placeholder="Paste your Python code here..."></textarea>
+        <br><br>
+        <button type="submit">Analyze Code</button>
+    </form>
+
+    {% if feedback %}
+        <div class="badge">
+            System Mode: {{ feedback.agent_mode }}
+        </div>
+
+        <div class="section">
+            <h3>🚨 Detected Issues</h3>
+            <ul>
+                {% for issue in feedback.issues %}
+                    <li>{{ issue }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>🧠 AI Explanation</h3>
+            <ul>
+                {% for exp in feedback.explanations %}
+                    <li>{{ exp }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>✅ Improvement Suggestions</h3>
+            <ul>
+                {% for sug in feedback.suggestions %}
+                    <li>{{ sug }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
